@@ -23,6 +23,8 @@ def prepare_user_msg(item: dict[str, Any]):
     return f"{date} {desc}\n{from_}{to_}\n{amount} {currency}"
 
 def get_date(date):
+    if len(date) < 10:
+        return ""
     date_raw = date[0:10].split(sep="-")
     return f"{date_raw[2]}.{date_raw[1]}.{date_raw[0]}"
 
@@ -50,7 +52,7 @@ def mask_account(number):
 
 
 def mask_card_number(number: str):
-    if number.isdigit() and len(number) > 4:
+    if number.isdigit() and len(number) == 16:
         return f"{number[:4]} {number[4:6]}** **** {number[-4:]}"
 
     else:
